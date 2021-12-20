@@ -7,7 +7,7 @@ require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const { json } = require('express');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 
 const serviceAccount = require('./doctors-portal-firebase-adminsdk.json')
@@ -50,7 +50,7 @@ async function run() {
 
         app.get('/appointments', verifyToken, async (req, res) => {
             const email = req.query.email;
-            const date = req.query.date;
+            const date = new Date(req.query.date).toLocaleDateString();
             // console.log(date)
             const query = { email: email, date: date };
             // console.log(query)
